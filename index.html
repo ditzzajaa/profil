@@ -1,0 +1,762 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050807">
+  <title>Mishello Mio Shani | Personal Profile</title>
+
+  <style>
+    :root {
+      --bg: #050807;
+      --panel: #0b110e;
+      --green: #39ff88;
+      --green-soft: #a0ffc4;
+      --text: #f0fff5;
+      --muted: #91a79a;
+      --border: rgba(57, 255, 136, 0.19);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    body {
+      background:
+        radial-gradient(ellipse at 10% 10%, #0b482522, transparent 35%),
+        radial-gradient(ellipse at 90% 50%, #00ff8010, transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(5, 8, 7, 0.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--green);
+      text-shadow: 0 0 15px #39ff8860;
+    }
+
+    nav .links {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--green);
+    }
+
+    /* TOMBOL */
+    .button {
+      display: inline-block;
+      text-decoration: none;
+      padding: 12px 24px;
+      color: #031008;
+      background: var(--green);
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: 0 0 20px #39ff8825;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px #39ff8870;
+    }
+
+    .button-outline {
+      background: transparent;
+      color: var(--green);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      isolation: isolate;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 125px 20px 75px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: min(75vw, 500px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #00ff8014;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-size: 12px;
+      margin-bottom: 20px;
+      animation: intro 0.8s ease both;
+    }
+
+    .hero h1 {
+      max-width: 950px;
+      overflow-wrap: anywhere;
+      font-size: clamp(36px, 8vw, 76px);
+      line-height: 1.12;
+      letter-spacing: -2px;
+      text-shadow: 0 0 35px #39ff881c;
+      animation: intro 0.8s ease 0.15s both;
+    }
+
+    .hero h1 span {
+      color: var(--green);
+      text-shadow: 0 0 30px #39ff8840;
+    }
+
+    .hero-description {
+      max-width: 460px;
+      color: var(--muted);
+      font-size: 14px;
+      margin: 18px 0 25px;
+      animation: intro 0.8s ease 0.3s both;
+    }
+
+    .profile-frame {
+      width: 180px;
+      height: 180px;
+      padding: 4px;
+      border-radius: 50%;
+      border: 1px solid #39ff8870;
+      background: #0b160f;
+      box-shadow:
+        0 0 15px #39ff8830,
+        0 0 45px #39ff8820,
+        0 0 90px #39ff8810;
+      margin: 8px 0 30px;
+      animation: intro 0.8s ease 0.2s both;
+    }
+
+    .profile-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      animation: intro 0.8s ease 0.4s both;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 25px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      animation: float 2s infinite;
+    }
+
+    /* BLOK DAN CAHAYA DI LUAR */
+    .content {
+      width: min(100% - 40px, 1000px);
+      margin: 0 auto;
+      padding: 65px 0;
+      scroll-margin-top: 65px;
+    }
+
+    .panel {
+      position: relative;
+      isolation: isolate;
+      background: linear-gradient(145deg, #0c1510, #080c09 75%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: clamp(22px, 5vw, 42px);
+      box-shadow:
+        0 0 25px #39ff8808,
+        0 0 65px #39ff8809;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -2px;
+      border-radius: inherit;
+      background: linear-gradient(
+        135deg,
+        #39ff8830,
+        transparent 35%,
+        transparent 65%,
+        #39ff881b
+      );
+      filter: blur(18px);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .section-label {
+      color: var(--green);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(27px, 5vw, 42px);
+      line-height: 1.25;
+      margin-bottom: 15px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 650px;
+      margin-bottom: 28px;
+    }
+
+    /* INFORMASI */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .info-card {
+      padding: 20px;
+      border: 1px solid #39ff8817;
+      background: #07100b;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .info-card:hover {
+      border-color: #39ff8870;
+      box-shadow: 0 0 22px #39ff8812;
+      transform: translateY(-4px);
+    }
+
+    .info-icon {
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .info-card small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .info-card strong {
+      display: block;
+      font-size: 15px;
+      overflow-wrap: anywhere;
+    }
+
+    /* CERITA */
+    .quote {
+      margin-top: 25px;
+      padding: 20px;
+      border-left: 3px solid var(--green);
+      background: #39ff8808;
+      border-radius: 0 10px 10px 0;
+      color: var(--green-soft);
+      font-style: italic;
+    }
+
+    /* HOBI */
+    .hobby-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hobby {
+      padding: 10px 15px;
+      border: 1px solid #39ff8835;
+      border-radius: 8px;
+      background: #39ff8808;
+      font-size: 13px;
+      transition: 0.3s;
+    }
+
+    .hobby:hover {
+      background: #39ff8818;
+      box-shadow: 0 0 20px #39ff8815;
+    }
+
+    /* GALERI */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3 / 4;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #0a100c;
+      box-shadow: 0 0 18px #39ff8808;
+    }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s, filter 0.5s;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1.1);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 25px 12px 12px;
+      background: linear-gradient(transparent, #000d);
+      font-size: 12px;
+      color: white;
+    }
+
+    /* PENUTUP */
+    .closing {
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .closing::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 10% 15%;
+      background: #00ff8010;
+      filter: blur(65px);
+      pointer-events: none;
+    }
+
+    .closing h2 {
+      font-size: clamp(30px, 6vw, 48px);
+      margin-bottom: 12px;
+    }
+
+    .closing h2 span {
+      color: var(--green);
+    }
+
+    .closing p {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 25px 15px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      background: #040605;
+    }
+
+    footer span {
+      color: var(--green);
+    }
+
+    /* FADE IN */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(35px);
+      transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes intro {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 13px 5%;
+      }
+
+      nav .links {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 11px;
+      }
+
+      .logo {
+        font-size: 14px;
+      }
+
+      .profile-frame {
+        width: 150px;
+        height: 150px;
+      }
+
+      .content {
+        width: calc(100% - 28px);
+        padding: 38px 0;
+      }
+
+      .info-grid {
+        gap: 10px;
+      }
+
+      .info-card {
+        padding: 14px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .panel {
+        padding: 23px 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="logo">MIO.SHANI</div>
+    <div class="links">
+      <a href="#tentang">Tentang</a>
+      <a href="#hobi">Hobi</a>
+      <a href="#galeri">Galeri</a>
+    </div>
+  </nav>
+
+  <!-- HALAMAN PEMBUKA -->
+  <header class="hero">
+    <div class="eyebrow">✦ Selamat Datang ✦</div>
+
+    <h1>Mishello <span>Mio Shani</span></h1>
+
+    <p class="hero-description">
+      Welcome to my personal space.
+      Sebuah halaman kecil untuk mengenal diriku lebih dekat.
+    </p>
+
+    <div class="profile-frame">
+      <img src="gambar1.jpg" alt="Foto profil Mishello Mio Shani">
+    </div>
+
+    <div class="hero-actions">
+      <a href="#tentang" class="button">Kenali Aku ↘</a>
+      <a href="#galeri" class="button button-outline">Lihat Galeri</a>
+    </div>
+
+    <div class="scroll-hint">SCROLL TO EXPLORE ↓</div>
+  </header>
+
+  <!-- TENTANG SAYA -->
+  <section class="content fade-in" id="tentang">
+    <div class="panel">
+      <div class="section-label">01 / ABOUT ME</div>
+      <h2 class="section-title">Tentang Aku<span style="color:var(--green)">.</span></h2>
+
+      <p class="section-description">
+        Halo! Aku Mishello Mio Shani. Aku seorang pelajar yang
+        terus belajar, mencoba hal baru, dan ingin mengembangkan
+        kemampuan serta kreativitas.
+      </p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon">👤</div>
+          <small>Nama Lengkap</small>
+          <strong>Mishello Mio Shani</strong>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">🎂</div>
+          <small>Umur</small>
+          <strong>15 Tahun</strong>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">📅</div>
+          <small>Tanggal Lahir</small>
+          <strong>03 Juni 2012</strong>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">🎓</div>
+          <small>Kelas</small>
+          <strong>IX (9)</strong>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">🌍</div>
+          <small>Negara</small>
+          <strong>Indonesia</strong>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">💡</div>
+          <small>Prinsip</small>
+          <strong>Terus Berkembang</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERITA -->
+  <section class="content fade-in">
+    <div class="panel">
+      <div class="section-label">02 / MY STORY</div>
+      <h2 class="section-title">Ini Ceritaku<span style="color:var(--green)">.</span></h2>
+
+      <p class="section-description">
+        Setiap orang mempunyai perjalanan yang berbeda.
+        Bagiku, setiap pengalaman adalah kesempatan untuk
+        belajar dan menjadi lebih baik.
+      </p>
+
+      <p class="section-description">
+        Aku ingin terus mencoba hal-hal baru, mengembangkan
+        ide, dan menciptakan sesuatu yang bisa kubanggakan.
+        Ini adalah sedikit bagian dari ceritaku.
+      </p>
+
+      <div class="quote">
+        "Jangan berhenti berkembang hanya karena perjalananmu
+        berbeda dari orang lain."
+      </div>
+    </div>
+  </section>
+
+  <!-- HOBI -->
+  <section class="content fade-in" id="hobi">
+    <div class="panel">
+      <div class="section-label">03 / MY INTERESTS</div>
+      <h2 class="section-title">Hobi & Minat<span style="color:var(--green)">.</span></h2>
+
+      <p class="section-description">
+        Beberapa hal yang bisa kamu tampilkan di bagian ini.
+        Silakan sesuaikan dengan hobimu yang sebenarnya.
+      </p>
+
+      <div class="hobby-list">
+        <div class="hobby">🎮 Gaming</div>
+        <div class="hobby">🎬 Video Editing</div>
+        <div class="hobby">💻 Teknologi</div>
+        <div class="hobby">🎧 Musik</div>
+        <div class="hobby">📸 Fotografi</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERI FOTO -->
+  <section class="content fade-in" id="galeri">
+    <div class="panel">
+      <div class="section-label">04 / MY MEMORIES</div>
+      <h2 class="section-title">Galeri Foto<span style="color:var(--green)">.</span></h2>
+
+      <p class="section-description">
+        Kumpulan foto, momen, dan kenangan yang ingin
+        kubagikan. Semua gambar dimuat dari file di folder website.
+      </p>
+
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="gambar2.jpg" alt="Foto kenangan 1" loading="lazy">
+          <div class="gallery-caption">My Memories 01</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="gambar3.jpg" alt="Foto kenangan 2" loading="lazy">
+          <div class="gallery-caption">My Memories 02</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="gambar4.jpg" alt="Foto kenangan 3" loading="lazy">
+          <div class="gallery-caption">My Memories 03</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="gambar5.jpg" alt="Foto kenangan 4" loading="lazy">
+          <div class="gallery-caption">My Memories 04</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="gambar6.jpg" alt="Foto kenangan 5" loading="lazy">
+          <div class="gallery-caption">My Memories 05</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="gambar7.jpg" alt="Foto kenangan 6" loading="lazy">
+          <div class="gallery-caption">My Memories 06</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PENUTUP -->
+  <section class="closing fade-in">
+    <h2>Thanks for <span>Visiting!</span></h2>
+    <p>Senang bisa memperkenalkan diriku kepadamu. 💚</p>
+    <a href="#" class="button">↑ Kembali ke Atas</a>
+  </section>
+
+  <footer>
+    <p>© <span id="year"></span> Mishello Mio Shani</p>
+    <p>Designed with <span>♥</span> and a little creativity.</p>
+  </footer>
+
+  <script>
+    // Animasi fade-in ketika blok masuk ke layar
+    const elements = document.querySelectorAll(".fade-in");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12
+      });
+
+      elements.forEach(element => observer.observe(element));
+    } else {
+      elements.forEach(element => element.classList.add("visible"));
+    }
+
+    // Tahun footer otomatis
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Jika gambar belum ada, tampilkan placeholder yang rapi
+    document.querySelectorAll("img").forEach(img => {
+      img.addEventListener("error", () => {
+        img.style.display = "none";
+
+        const placeholder = document.createElement("div");
+        placeholder.style.cssText = `
+          height:100%;
+          min-height:100px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          flex-direction:column;
+          gap:8px;
+          color:#91a79a;
+          background:#0a100c;
+          text-align:center;
+          padding:12px;
+          font-size:12px;
+        `;
+
+        const icon = document.createElement("span");
+        icon.textContent = "▧";
+        icon.style.cssText = "font-size:30px;color:#39ff88";
+
+        const caption = document.createElement("span");
+        caption.textContent = "File: " + img.getAttribute("src");
+
+        placeholder.append(icon, caption);
+        img.parentElement.appendChild(placeholder);
+      });
+    });
+  </script>
+
+</body>
+</html>
